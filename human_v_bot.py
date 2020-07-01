@@ -6,7 +6,6 @@ from omok import agent
 from omok import board
 from omok import types
 from omok.utils import print_board, print_move, point_from_coords
-from six.moves import input
 
 def main():
     board_size = 9
@@ -14,18 +13,23 @@ def main():
     bot = agent.RandomBot()
 
     while not game.is_over():
-        # 새로운 수를 둘 때마다 콘솔창 초기화
-        print(f'{chr(27)}[2J')
-        print_board(game.board)
-        if game.next_player == types.Player.black:
-            human_move = input('착수 : ')
-            point = point_from_coords(human_move.strip())
-            move = board.Move.play(point)
-        else:
-            move = bot.select_move(game)
+        try:
+            # 새로운 수를 둘 때마다 콘솔창 초기화
+            print(f'{chr(27)}[2J')
+            print_board(game.board)
+            if game.next_player == types.Player.black:
+                human_move = input('착수 : ')
+                point = point_from_coords(human_move.strip())
+                move = board.Move.play(point)
+            else:
+                move = bot.select_move(game)
 
-        print_move(game.next_player, move)
-        game = game.apply_move(move)
+            game = game.apply_move(move)
+            print_move(game.next_player, move)
+        except ValueError:
+            print('정확한 좌표를 입력하세요.')
+        except AssertionError:
+            print('이미 돌이 존재합니다.')
 
     print(f'{chr(27)}[2J')
     print_board(game.board)
