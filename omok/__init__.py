@@ -4,4 +4,4 @@
 
 from .types import *
 from .board_slow import *
-from.utils import *
+from .utils import *
