@@ -3,9 +3,9 @@
 # Apache License 2.0
 
 import copy
-from omok.types import Player
+from omok.types import Player, Point
 
-# 자기 차례에 할 수 있는 행위 정의 클래스
+# 자기 차례에 할 수 있는 행동 정의 클래스
 class Move():
     def __init__(self, point=None):
         assert (point is not None)
@@ -62,13 +62,74 @@ class GameState():
         board = Board(*board_size)
         return GameState(board, Player.black, None, None)
 
+    # 돌이 5개 모였는지 확인
+    def is_five(self, row, col):
+        r = row
+        c = col
+        five = True
+
+        # 현재 위치에서 우측 확인
+        for i in range(1, 5):
+            if not self.board.is_on_grid(Point(row=r, col=c+i)) or \
+                   self.board._grid[r][c] != self.board._grid[r][c+i]:
+                five = False
+                break
+        if five:
+            return self.board._grid[r][c]
+        else:
+            five = True
+
+        # 현재 위치에서 하단 확인
+        for i in range(1, 5):
+            if not self.board.is_on_grid(Point(row=r+i, col=c)) or \
+                   self.board._grid[r][c] != self.board._grid[r+i][c]:
+                five = False
+                break
+        if five:
+            return self.board._grid[r][c]
+        else:
+            five = True
+
+        # 현재 위치에서 좌하단 확인
+        for i in range(1, 5):
+            if not self.board.is_on_grid(Point(row=r+i, col=c-i)) or \
+                   self.board._grid[r][c] != self.board._grid[r+i][c-i]:
+                five = False
+                break
+        if five:
+            return self.board._grid[r][c]
+        else:
+            five = True
+
+        # 현재 위치에서 우하단 확인
+        for i in range(1, 5):
+            if not self.board.is_on_grid(Point(row=r+i, col=c+i)) or \
+                   self.board._grid[r][c] != self.board._grid[r+i][c+i]:
+                five = False
+                break
+        if five:
+            return self.board._grid[r][c]
+
+        return None
+
     # 대국이 종료되었는지 확인
     def is_over(self):
+        is_board_full = True
         for r in range(1, self.board.num_rows + 1):
             for c in range(1, self.board.num_cols + 1):
-                if self.board._grid[r][c] is None:
-                    return False
-        return True
+                if self.board._grid[r][c] is not None:
+                    winner = self.is_five(r, c)
+                    if winner is not None:
+                        print(f'{str(winner)}의 승리!')
+                        return True
+                else:
+                    is_board_full = False
+
+        if is_board_full:
+            print('무승부!')
+            return True
+        else:
+            return False
 
     # 현재 상태에서 유효한 수인지 확인
     def is_valid_move(self, move):
