@@ -3,5 +3,5 @@
 # Apache License 2.0
 
 from .types import *
-from .board_slow import *
+from .board import *
 from .utils import *

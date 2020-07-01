@@ -4,7 +4,7 @@
 
 import random
 from omok.agent.base import Agent
-from omok.board_slow import Move
+from omok.board import Move
 from omok.types import Point
 
 class RandomBot(Agent):

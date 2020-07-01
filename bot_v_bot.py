@@ -3,14 +3,14 @@
 # Apache License 2.0
 
 from omok import agent
-from omok import board_slow
+from omok import board
 from omok import types
 from omok.utils import print_board, print_move
 import time
 
 def main():
     board_size = 9
-    game = board_slow.GameState.new_game(board_size)
+    game = board.GameState.new_game(board_size)
     bots = {
         types.Player.black: agent.naive.RandomBot(),
         types.Player.white: agent.naive.RandomBot()
