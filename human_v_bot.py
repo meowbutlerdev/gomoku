@@ -27,5 +27,13 @@ def main():
         print_move(game.next_player, move)
         game = game.apply_move(move)
 
+    print(f'{chr(27)}[2J')
+    print_board(game.board)
+
+    if game.winner is None:
+        print('무승부!')
+    else:
+        print(f'{str(game.winner)}의 승리!')
+
 if __name__ == '__main__':
     main()

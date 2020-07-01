@@ -136,13 +136,13 @@ class GameState():
                 if self.board._grid[r][c] is not None:
                     winner = self.is_five(r, c)
                     if winner is not None:
-                        print(f'{str(winner)}의 승리!')
+                        self.winner = str(winner)
                         return True
                 else:
                     is_board_full = False
 
         if is_board_full:
-            print('무승부!')
+            self.winner = None
             return True
         else:
             return False
