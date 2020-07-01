@@ -4,6 +4,7 @@
 
 import copy
 from omok.types import Player, Point
+from omok import zobrist
 
 # 자기 차례에 할 수 있는 행동 정의 클래스
 class Move():
@@ -23,12 +24,15 @@ class Board():
         self.num_rows = num_rows
         self.num_cols = num_cols
         self._grid = [[None for _ in range(num_rows + 1)] for _ in range(num_cols + 1)]
+        self._hash = zobrist.EMPTY_BOARD
 
     # 착수
     def place_stone(self, player, point):
         assert self.is_on_grid(point)
         assert self._grid[point.row][point.col] is None
         self._grid[point.row][point.col] = player
+
+        self._hash ^= zobrist.HASH_CODE[point, player]
 
     # 점이 바둑판 내에 존재하는지 확인
     def is_on_grid(self, point):
@@ -41,12 +45,24 @@ class Board():
         string_color = self._grid[point.row][point.col]
         return string_color
 
+    # 현재 zobrist hash 값 반환
+    def zobrist_hash(self):
+        return self._hash
+
 # 게임 현황 정의 클래스
 class GameState():
     def __init__(self, board, next_player, previous, move):
         self.board = board
         self.next_player = next_player
         self.previous_state = previous
+        if self.previous_state is None:
+            self.previous_states = frozenset()
+        else:
+            self.previous_states = frozenset(
+                previous.previous_states |
+                {(previous.next_player, previous.board.zobrist_hash())}
+            )
+        self.last_move = move
 
     # 착수 후 새로운 GameState 반환
     def apply_move(self, move):
