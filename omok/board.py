@@ -11,6 +11,7 @@ class Move():
     def __init__(self, point=None):
         assert (point is not None)
         self.point = point
+        self.is_play = (self.point is not None)
 
     # 바둑판에 돌을 놓는 행동
     @classmethod
@@ -63,6 +64,7 @@ class GameState():
                 {(previous.next_player, previous.board.zobrist_hash())}
             )
         self.last_move = move
+        self.winner = None
 
     # 착수 후 새로운 GameState 반환
     def apply_move(self, move):
@@ -153,3 +155,16 @@ class GameState():
             return False
         else:
             return not self.board.get(move.point)
+
+    # 현재 상태에서 유효한 수들 모음
+    def legal_moves(self):
+        if self.is_over():
+            return []
+        moves = []
+        for row in range(1, self.board.num_rows + 1):
+            for col in range(1, self.board.num_cols + 1):
+                move = Move.play(Point(row, col))
+                if self.is_valid_move(move):
+                    moves.append(move)
+
+        return moves
