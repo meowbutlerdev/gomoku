@@ -28,6 +28,8 @@ def main():
             print_move(game.next_player, move)
         except ValueError:
             print('정확한 좌표를 입력하세요.')
+        except IndexError:
+            print('정확한 좌표를 입력하세요.')
         except AssertionError:
             print('이미 돌이 존재합니다.')
 
