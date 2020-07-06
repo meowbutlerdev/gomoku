@@ -1,7 +1,5 @@
-# reinforcement-learning-omok
-본 프로그램은 아래 책을 참고하여 제작되었습니다.  
-<img src="http://image.yes24.com/goods/90323579/800x0" width="30%" height="30%">
-<img src="http://image.yes24.com/goods/57617908/800x0" width="26.5%" height="26.5%">
+# mcts-omok
+개발중입니다.
 
 # Tree
 ```
@@ -38,4 +36,4 @@
   
 <br>
 
-#### Open Source License는 [이곳](NOTICE.md)에서 확인해주시고, 문의사항은 [Issue](https://github.com/IllIIIllll/image-scrapper/issues) 페이지에 남겨주세요.
+#### Open Source License는 [이곳](NOTICE.md)에서 확인해주시고, 문의사항은 [Issue](https://github.com/IllIIIllll/mcts-omok/issues) 페이지에 남겨주세요.
