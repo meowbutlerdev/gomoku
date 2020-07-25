@@ -3,7 +3,7 @@
 # Apache License 2.0
 
 import random
-from omok.types import Player, Point
+from gomoku.types import Player, Point
 
 __all__ = ['HASH_CODE', 'EMPTY_BOARD']
 

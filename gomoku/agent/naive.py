@@ -3,9 +3,9 @@
 # Apache License 2.0
 
 import random
-from omok.agent.base import Agent
-from omok.board import Move
-from omok.types import Point
+from gomoku.agent.base import Agent
+from gomoku.board import Move
+from gomoku.types import Point
 
 class RandomBot(Agent):
     def select_move(self, game_state):

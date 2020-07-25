@@ -2,7 +2,7 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
-from omok import types
+from gomoku import types
 
 # 바둑판 열 번호 정의
 COLS = 'ABCDEFGHJKLMNOPQRST'

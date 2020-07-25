@@ -5,12 +5,14 @@
 import argparse
 import numpy as np
 
-from omok.encoders import get_encoder_by_name
-from omok import board
-from omok import mcts
-from omok.utils import print_board, print_move
+from gomoku.encoders import get_encoder_by_name
+from gomoku import board
+from gomoku import mcts
+from gomoku.utils import print_board, print_move
 
 # MCTS 대국 생성
+# boards에는 바둑판의 현재 상태를 기록
+# moves에는 수의 값을 변환하여 기록
 def generate_game(board_size, rounds, max_moves, temperature):
     boards, moves = [], []
 

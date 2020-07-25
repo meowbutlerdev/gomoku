@@ -2,10 +2,10 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
-from omok import agent
-from omok import board
-from omok import types
-from omok.utils import print_board, print_move, point_from_coords
+from gomoku import agent
+from gomoku import board
+from gomoku import types
+from gomoku.utils import print_board, print_move, point_from_coords
 
 def main():
     board_size = 9

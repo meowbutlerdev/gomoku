@@ -3,8 +3,8 @@
 # Apache License 2.0
 
 import copy
-from omok.types import Player, Point
-from omok import zobrist
+from gomoku.types import Player, Point
+from gomoku import zobrist
 
 # 자기 차례에 할 수 있는 행동 정의 클래스
 class Move():

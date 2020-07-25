@@ -3,8 +3,8 @@
 # Apache License 2.0
 
 import numpy as np
-from omok.encoders.base import Encoder
-from omok.board import Point
+from gomoku.encoders.base import Encoder
+from gomoku.board import Point
 
 class OnePlaneEncoder(Encoder):
     def __init__(self, board_size):

@@ -4,8 +4,8 @@
 
 import math
 import random
-from omok import agent
-from omok.types import Player
+from gomoku import agent
+from gomoku.types import Player
 
 # MCTS 롤아웃
 class MCTSNode(object):
