@@ -21,10 +21,10 @@ class OnePlaneEncoder(Encoder):
         for r in range(1, self.board_height + 1):
             for c in range(1, self.board_width + 1):
                 p = Point(row=r, col=c)
-                go_string = game_state.board.get(p)
-                if go_string is None:
+                gomoku_string = game_state.board.get(p)
+                if gomoku_string is None:
                     continue
-                board_matrix[0, r, c] = 1 if go_string.color == next_player else -1
+                board_matrix[0, r, c] = 1 if gomoku_string.color == next_player else -1
             return board_matrix
 
     # 바둑판의 각 점들을 정수형 인덱스로 변환
