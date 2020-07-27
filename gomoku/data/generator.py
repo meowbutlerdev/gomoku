@@ -11,7 +11,7 @@ class DataGenerator:
         self.data_directory = data_directory
         self.samples = samples
         # 이전에 샘플링한 파일
-        self.files = set(file_name for file_name, index in samples)
+        self.files = set(file_name for file_name in samples)
         self.num_samples = None
 
     # 샘플 수 확인
@@ -27,17 +27,20 @@ class DataGenerator:
     # 오목 데이터의 다음 배치를 생성 후 반환
     def  _generate(self, batch_size, num_classes):
         for xml_file_name in self.files:
-            file_name = xml_file_name.replace('.xml', '_') + 'train'
-            feature_file = f'{self.data_directory}/{file_name}_features.npy'
-            label_file = f'{self.data_directory}/{file_name}l_abels.npy'
-            x = np.load(feature_file)
-            y = np.load(label_file)
-            x = x.astype('float32')
-            y = to_categorical(y.astype(int), num_classes)
-            while x.shape[0] >= batch_size:
-                x_batch, x = x[:batch_size], x[batch_size:]
-                y_batch, y = y[:batch_size], y[batch_size:]
-                yield x_batch, y_batch
+            try:
+                file_name = xml_file_name.replace('.xml', '_') + 'train'
+                feature_file = f'{self.data_directory}/{file_name}_features.npy'
+                label_file = f'{self.data_directory}/{file_name}_labels.npy'
+                x = np.load(feature_file)
+                y = np.load(label_file)
+                x = x.astype('float32')
+                y = to_categorical(y.astype(int), num_classes)
+                while x.shape[0] >= batch_size:
+                    x_batch, x = x[:batch_size], x[batch_size:]
+                    y_batch, y = y[:batch_size], y[batch_size:]
+                    yield x_batch, y_batch
+            except FileNotFoundError:
+                pass
 
     # 모델 훈련에 생성기를 사용하기 위한 메서드
     def generate(self, batch_size=128, num_classes=15 * 15):
