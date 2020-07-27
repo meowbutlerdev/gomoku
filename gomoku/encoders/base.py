@@ -35,7 +35,7 @@ def get_encoder_by_name(name, board_size):
     if isinstance(board_size, int):
         # board_size를 이용하여 정사각형 모양의 바둑판 생성
         board_size = (board_size, board_size)
-    module = importlib.import_module(f'omok.encoders.{name}')
+    module = importlib.import_module(f'gomoku.encoders.{name}')
     # 변환기 구현시 인스턴스를 제공하는 create 함수 제공
     constructor = getattr(module, 'create')
     return constructor(board_size)
