@@ -4,22 +4,29 @@
 # Tree
 ```
 .
-├── omok/
+├── gomoku/
 │   ├── agent/
-│   │   ├── base.py          : 에이전트 기본 인터페이스
-│   │   └── navie.py         : 무작위 수를 두는 봇
-│   ├── encoders/
-│   │   ├── base.py          : 변환기 기본
-│   │   └── oneplane.py      : 자기 자신의 돌은 1, 상대의 돌은 -1, 빈 곳은 0으로 변환하는 변환기
+│   │   ├── base.py               : 에이전트 기본 인터페이스
+│   │   └── navie.py              : 무작위 수를 두는 봇
+│   ├── data/
+│   │   ├── generator.py          : 모델 훈련용 제너레이터
+│   │   ├── index_processor.py    : http://renjuoffline.com/의 기보 중 필요한 데이터만 추출
+│   │   ├── processor.py          : index_processor.py에서 추출된 데이터를 numpy 배열로 변환 및 저장
+│   │   ├── sampling.py           : 추출된 데이터 중 훈련 데이터 샘플링
+│   ├── encoders/
+│   │   ├── base.py               : 변환기 기본
+│   │   └── oneplane.py           : 자기 자신의 돌은 1, 상대의 돌은 -1, 빈 곳은 0으로 변환하는 변환기
 │   ├── mcts/
-│   │   └── mcts.py          : MCTS 알고리즘
-│   ├── board.py             : 바둑판 구현 및 게임 현황
-│   ├── types.py             : 각 선수 및 돌의 좌표
-│   ├── utils.py             : 돌 착수 위치 및 바둑판 출력
-│   └── zobrist.py           : 조브리스트 해싱
-├── bot_v_bot.py             : 봇끼리 대국 진행
-├── generate_mcts_games.py   : MCTS로 대국 데이터 생성
-└── human_v_bot.py           : 사람과 봇 대국 진행
+│   │   └── mcts.py               : MCTS 알고리즘
+│   ├── data/
+│   │   └── notation.py           : 문자로 된 기보를 숫자로 변환
+│   ├── board.py                  : 바둑판 구현 및 게임 현황
+│   ├── types.py                  : 각 선수 및 돌의 좌표
+│   ├── utils.py                  : 돌 착수 위치 및 바둑판 출력
+│   └── zobrist.py                : 조브리스트 해싱
+├── bot_v_bot.py                  : 봇끼리 대국 진행
+├── generate_mcts_games.py        : MCTS로 대국 데이터 생성
+└── human_v_bot.py                : 사람과 봇 대국 진행
 ```
 
 # Skills
