@@ -5,6 +5,7 @@
 import os
 import random
 import glob
+import platform
 from gomoku.data.index_processor import Index
 from six.moves import range
 
@@ -16,6 +17,7 @@ class Sampler:
         self.train_games = []
         self.test_folder = 'test_samples.py'
         self.cap_year = cap_year
+        self.platform = platform.platform().split('-')[0]
 
         random.seed(seed)
         self.compute_test_samples()
@@ -35,7 +37,10 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            filename = filepath.replace(self.data_dir + '\\', '')
+            if self.platform == 'Windows':
+                filename = filepath.replace(self.data_dir + '\\', '')
+            else:
+                filename = filepath.replace(self.data_dir + '/', '')
             year = int(filename[:4])
             if year > self.cap_year:
                 continue
@@ -71,7 +76,10 @@ class Sampler:
             test_games = self.draw_samples(self.num_test_games)
             test_sample_file = open(self.test_folder, 'w')
             for sample in test_games:
-                test_sample_file.write(str(sample).replace('\\', '/') + "\n")
+                if self.platform == 'Windows':
+                    test_sample_file.write(str(sample).replace('\\', '/') + "\n")
+                else:
+                    test_sample_file.write(str(sample) + "\n")
             test_sample_file.close()
 
         test_sample_file = open(self.test_folder, 'r')
@@ -86,7 +94,10 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            filename = filepath.replace(self.data_dir + '\\', '')
+            if self.platform == 'Windows':
+                filename = filepath.replace(self.data_dir + '\\', '')
+            else:
+                filename = filepath.replace(self.data_dir + '/', '')
             year = int(filename[:4])
             if year > self.cap_year:
                 continue
@@ -106,7 +117,10 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            filename = filepath.replace(self.data_dir + '\\', '')
+            if self.platform == 'Windows':
+                filename = filepath.replace(self.data_dir + '\\', '')
+            else:
+                filename = filepath.replace(self.data_dir + '/', '')
             year = int(filename[:4])
             if year > self.cap_year:
                 continue
