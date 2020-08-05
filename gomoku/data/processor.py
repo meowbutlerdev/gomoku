@@ -43,7 +43,7 @@ class GomokuDataProcessor:
         sampler = Sampler(data_dir=self.data_dir)
         data = sampler.draw_data(data_type, num_samples)
 
-        #self.map_to_workers(data_type, data)
+        self.map_to_workers(data_type, data)
         if use_generator:
             generator = DataGenerator(self.data_dir, data)
             return generator

@@ -15,7 +15,7 @@ class Sampler:
         self.num_test_games = num_test_games
         self.test_games = []
         self.train_games = []
-        self.test_folder = 'test_samples.py'
+        self.test_folder = 'test.sample'
         self.cap_year = cap_year
         self.platform = platform.platform().split('-')[0]
 
@@ -44,7 +44,7 @@ class Sampler:
             year = int(filename[:4])
             if year > self.cap_year:
                 continue
-            available_games.append(filepath)
+            available_games.append(filename)
         print('>>> Total number of games used: ' + str(len(available_games)))
 
         sample_set = set()
