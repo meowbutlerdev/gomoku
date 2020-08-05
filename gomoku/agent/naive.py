@@ -9,7 +9,7 @@ from gomoku.types import Point
 
 class RandomBot(Agent):
     def select_move(self, game_state):
-        """임의의 유효한 수를 선택한다."""
+        # 임의의 유효한 수를 선택한다.
         candidates = []
         for r in range(1, game_state.board.num_rows + 1):
             for c in range(1, game_state.board.num_cols + 1):

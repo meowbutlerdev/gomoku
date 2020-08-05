@@ -25,7 +25,7 @@ class DataGenerator:
             return self.num_samples
 
     # 오목 데이터의 다음 배치를 생성 후 반환
-    def  _generate(self, batch_size, num_classes):
+    def _generate(self, batch_size, num_classes):
         for xml_file_name in self.files:
             try:
                 file_name = xml_file_name.replace('.xml', '_') + 'train'
