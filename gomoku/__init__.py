@@ -5,3 +5,4 @@
 from .types import *
 from .board import *
 from .utils import *
+from .zobrist import *
