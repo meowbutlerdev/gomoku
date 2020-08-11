@@ -141,7 +141,6 @@ class GameState():
                         return True
                 else:
                     is_board_full = False
-
         if is_board_full:
             self.winner = None
             return True
@@ -150,15 +149,10 @@ class GameState():
 
     # 현재 상태에서 유효한 수인지 확인
     def is_valid_move(self, move):
-        if self.is_over():
-            return False
-        else:
-            return not self.board.get(move.point)
+        return not self.board.get(move.point)
 
     # 현재 상태에서 유효한 수들 모음
     def legal_moves(self):
-        if self.is_over():
-            return []
         moves = []
         for row in range(self.board.num_rows):
             for col in range(self.board.num_cols):

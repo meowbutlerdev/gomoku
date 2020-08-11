@@ -41,8 +41,7 @@ class MCTSNode(object):
     # 롤아웃 통계 갱신
     def record_win(self, winner):
         if winner is None:
-            self.win_counts[Player.black] += 1
-            self.win_counts[Player.white] += 1
+            pass
         else:
             self.win_counts[winner] += 1
         self.num_rollouts += 1
