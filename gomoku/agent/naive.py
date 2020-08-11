@@ -11,9 +11,9 @@ class RandomBot(Agent):
     def select_move(self, game_state):
         # 임의의 유효한 수를 선택한다.
         candidates = []
-        for r in range(1, game_state.board.num_rows + 1):
-            for c in range(1, game_state.board.num_cols + 1):
-                candidate = Point(row=r, col=c)
+        for row in range(game_state.board.num_rows):
+            for col in range(game_state.board.num_cols):
+                candidate = Point(row=row+1, col=col+1)
                 if game_state.is_valid_move(Move.play(candidate)):
                     candidates.append(candidate)
         return Move.play(random.choice(candidates))

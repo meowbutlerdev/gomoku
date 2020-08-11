@@ -32,7 +32,6 @@ class Board():
         assert self.is_on_grid(point)
         assert self._grid[point.row][point.col] is None
         self._grid[point.row][point.col] = player
-
         self._hash ^= zobrist.HASH_CODE[point, player]
 
     # 점이 바둑판 내에 존재하는지 확인
@@ -82,61 +81,61 @@ class GameState():
 
     # 돌이 5개 모였는지 확인
     def is_five(self, row, col):
-        r = row
-        c = col
+        row = row
+        col = col
         five = True
 
         # 현재 위치에서 우측 확인
         for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=r, col=c+i)) or \
-                   self.board._grid[r][c] != self.board._grid[r][c+i]:
+            if not self.board.is_on_grid(Point(row=row, col=col+i)) or \
+                   self.board._grid[row][col] != self.board._grid[row][col+i]:
                 five = False
                 break
         if five:
-            return self.board._grid[r][c]
+            return self.board._grid[row][col]
         else:
             five = True
 
         # 현재 위치에서 하단 확인
         for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=r+i, col=c)) or \
-                   self.board._grid[r][c] != self.board._grid[r+i][c]:
+            if not self.board.is_on_grid(Point(row=row+i, col=col)) or \
+                   self.board._grid[row][col] != self.board._grid[row+i][col]:
                 five = False
                 break
         if five:
-            return self.board._grid[r][c]
+            return self.board._grid[row][col]
         else:
             five = True
 
         # 현재 위치에서 좌하단 확인
         for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=r+i, col=c-i)) or \
-                   self.board._grid[r][c] != self.board._grid[r+i][c-i]:
+            if not self.board.is_on_grid(Point(row=row+i, col=col-i)) or \
+                   self.board._grid[row][col] != self.board._grid[row+i][col-i]:
                 five = False
                 break
         if five:
-            return self.board._grid[r][c]
+            return self.board._grid[row][col]
         else:
             five = True
 
         # 현재 위치에서 우하단 확인
         for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=r+i, col=c+i)) or \
-                   self.board._grid[r][c] != self.board._grid[r+i][c+i]:
+            if not self.board.is_on_grid(Point(row=row+i, col=col+i)) or \
+                   self.board._grid[row][col] != self.board._grid[row+i][col+i]:
                 five = False
                 break
         if five:
-            return self.board._grid[r][c]
+            return self.board._grid[row][col]
 
         return None
 
     # 대국이 종료되었는지 확인
     def is_over(self):
         is_board_full = True
-        for r in range(1, self.board.num_rows + 1):
-            for c in range(1, self.board.num_cols + 1):
-                if self.board._grid[r][c] is not None:
-                    winner = self.is_five(r, c)
+        for row in range(self.board.num_rows):
+            for col in range(self.board.num_cols):
+                if self.board._grid[row+1][col+1] is not None:
+                    winner = self.is_five(row+1, col+1)
                     if winner is not None:
                         self.winner = str(winner)
                         return True
@@ -161,9 +160,9 @@ class GameState():
         if self.is_over():
             return []
         moves = []
-        for row in range(1, self.board.num_rows + 1):
-            for col in range(1, self.board.num_cols + 1):
-                move = Move.play(Point(row, col))
+        for row in range(self.board.num_rows):
+            for col in range(self.board.num_cols):
+                move = Move.play(Point(row+1, col+1))
                 if self.is_valid_move(move):
                     moves.append(move)
 

@@ -10,7 +10,7 @@ from gomoku.utils import print_board, print_move, point_from_coords
 def main():
     board_size = 5
     game = board.GameState.new_game(board_size)
-    bot = mcts.MCTSAgent(num_rounds=500, temperature=0.8)
+    bot = mcts.MCTSAgent(num_rounds=500, temperature=1.4)
 
     while not game.is_over():
         try:
@@ -23,9 +23,9 @@ def main():
                 move = board.Move.play(point)
             else:
                 move = bot.select_move(game)
-            print_move(game.next_player, move)
-            game = game.apply_move(move)
 
+            game = game.apply_move(move)
+            print_move(game.next_player, move)
         except ValueError:
             print('정확한 좌표를 입력하세요.')
         except IndexError:

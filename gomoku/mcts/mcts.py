@@ -59,11 +59,6 @@ class MCTSNode(object):
     def winning_frac(self, player):
         return float(self.win_counts[player]) / float(self.num_rollouts)
 
-# UCT(트리 신뢰도 상한선)
-def uct_score(parent_rollouts, child_rollouts, win_pct, temperature):
-    exploration = math.sqrt(math.log(parent_rollouts) / child_rollouts)
-    return win_pct + temperature * exploration
-
 # MCTS 알고리즘
 class MCTSAgent(agent.Agent):
     def __init__(self, num_rounds, temperature):
@@ -73,9 +68,10 @@ class MCTSAgent(agent.Agent):
 
     # 다음 착수 점 선택
     def select_move(self, game_state):
+        COLS = 'ABCDEFGHJKLMNOPQRST'
         root = MCTSNode(game_state)
 
-        for i in range(self.num_rounds):
+        for _ in range(self.num_rounds):
             node = root
             while (not node.can_add_child()) and (not node.is_terminal()):
                 node = self.select_child(node)
@@ -92,6 +88,19 @@ class MCTSAgent(agent.Agent):
                 node.record_win(winner)
                 node = node.parent
 
+        moves = []
+        for child in root.children:
+            moves.append(
+                (
+                    child.winning_frac(game_state.next_player),
+                    child.move.point,
+                    child.num_rollouts
+                )
+            )
+        moves.sort(key=lambda x: x[0], reverse=True)
+        for w, p, n in moves[:10]:
+            print(f'{COLS[p.col-1]}{p.row} : {w*100:.1f}%({n}승)')
+
         # 승률이 가장 높은 수 선택
         best_move = None
         best_pct = -1.0
@@ -100,11 +109,12 @@ class MCTSAgent(agent.Agent):
             if child_pct > best_pct:
                 best_pct = child_pct
                 best_move = child.move
+        best_row, best_col = best_move.point.row, best_move.point.col
+        print(f'승률 {best_pct*100:.1f}% {COLS[best_col-1]}{best_row} 선택')
         return best_move
 
-    # 자식노드 선택
+    # UCT에 따른 자식노드 선택
     def select_child(self, node):
-        """UCT에 따른 자식노드 선택"""
         total_rollouts = sum(child.num_rollouts for child in node.children)
         log_rollouts = math.log(total_rollouts)
 
@@ -115,6 +125,7 @@ class MCTSAgent(agent.Agent):
             win_percentage = child.winning_frac(node.game_state.next_player)
             exploration_factor = math.sqrt(log_rollouts / child.num_rollouts)
             uct_score = win_percentage + self.temperature * exploration_factor
+
             # UCT가 가장 큰 자식노드 선택
             if uct_score > best_score:
                 best_score = uct_score
