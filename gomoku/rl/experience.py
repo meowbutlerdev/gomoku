@@ -53,6 +53,19 @@ class ExperienceBuffer:
         h5file['experience'].create_dataset('actions', data=self.actions)
         h5file['experience'].create_dataset('rewards', data=self.rewards)
 
+# 경험 데이터 배치 저장
+def combine_experience(collectors):
+    combined_states = np.concatenate([np.array(c.states) for c in collectors])
+    combined_actions = np.concatenate([np.array(c.actions) for c in collectors])
+    combined_rewards = np.concatenate([np.array(c.rewards) for c in collectors])
+
+    return ExperienceBuffer(
+        combined_states,
+        combined_actions,
+        combined_rewards,
+        combined_advantages
+    )
+
 # HDF5 파일에서 ExperienceBuffer 로드
 def load_experience(h5file):
     return ExperienceBuffer(
