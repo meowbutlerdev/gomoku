@@ -1,4 +1,4 @@
-# mcts-omok
+# gomoku
 개발중입니다.
 
 # Tree
