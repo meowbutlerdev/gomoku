@@ -4,5 +4,6 @@
 
 from .generator import *
 from .index_processor import *
+from .notation import *
 from .processor import *
 from .sampling import *

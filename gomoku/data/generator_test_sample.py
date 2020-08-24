@@ -1,12 +1,10 @@
 # © 2020 지성. all rights reserved.
 # <llllllllll@kakao.com>
 # Apache License 2.0
-
 import os
-from multiprocessing import Process, freeze_support
-from keras.models import Sequential
-from keras.layers.core import Dense
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 from gomoku.data.processor import GomokuDataProcessor
 from gomoku.encoders.oneplane import OnePlaneEncoder
@@ -15,7 +13,7 @@ from gomoku.networks import small
 # 훈련/테스트 데이터
 gomoku_board_rows, gomoku_board_cols = 15, 15
 num_classes = gomoku_board_rows * gomoku_board_cols
-num_games = 100
+num_games = 1000
 # 바둑판 크기의 변환기 생성
 encoder = OnePlaneEncoder((gomoku_board_rows, gomoku_board_cols))
 # 바둑 데이터 처리기 초기화
@@ -32,9 +30,12 @@ for layer in network_layers:
 model.add(Dense(num_classes, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
+print('generator', len(generator))
+print('test_generator', len(test_generator))
+
 # 모델 최적화 및 평가
 epochs = 5
-batch_size = 10
+batch_size = 128
 
 # 체크포인트 저장 폴더 존재 여부 확인
 if not os.path.isdir('../checkpoints'):
@@ -54,3 +55,5 @@ model.evaluate_generator(
     generator = test_generator.generate(batch_size, num_classes),
     steps=test_generator.get_num_samples() / batch_size
 )
+
+model.save('model_path.h5')

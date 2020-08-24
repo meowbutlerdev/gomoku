@@ -2,8 +2,8 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
-from keras.layers.core import Dense, Activation, Flatten
-from keras.layers.convolutional import Conv2D, ZeroPadding2D
+from tensorflow.keras.layers import Dense, Activation, Flatten
+from tensorflow.keras.layers import Conv2D, ZeroPadding2D
 
 # 오목 수 예측용 작은 합성곱 신경망 층 정의
 def layers(input_shape):

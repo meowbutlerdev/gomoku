@@ -8,13 +8,12 @@ import sys
 import multiprocessing
 from xml.etree.ElementTree import parse
 
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 
-from gomoku.notation import Gomoku_game
 from gomoku.board import GameState, Move
 from gomoku.types import Point
-from gomoku.encoders.base import get_encoder_by_name
 from gomoku.data.index_processor import Index
+from gomoku.data.notation import Gomoku_game
 from gomoku.data.sampling import Sampler
 from gomoku.data.generator import DataGenerator
 from gomoku.encoders.base import get_encoder_by_name
