@@ -7,8 +7,7 @@ import os
 
 import h5py
 import keras
-from keras.models import load_model, save_model
-
+from tensorflow.keras.models import load_model, save_model
 
 def save_model_to_hdf5_group(model, f):
     # Use Keras save_model to save the full model (including optimizer
@@ -24,7 +23,6 @@ def save_model_to_hdf5_group(model, f):
         serialized_model.close()
     finally:
         os.unlink(tempfname)
-
 
 def load_model_from_hdf5_group(f, custom_objects=None):
     # Extract the model into a temporary file. Then we can use Keras
@@ -42,7 +40,6 @@ def load_model_from_hdf5_group(f, custom_objects=None):
         return load_model(tempfname, custom_objects=custom_objects)
     finally:
         os.unlink(tempfname)
-
 
 def set_gpu_memory_target(frac):
     """Configure Tensorflow to use a fraction of available GPU memory.

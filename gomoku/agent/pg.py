@@ -3,8 +3,8 @@
 # Apache License 2.0
 
 import numpy as np
-from keras import backend as K
-from keras.optimizers import SGD
+from tensorflow.keras import backend as K
+from tensorflow.keras.optimizers import SGD
 
 from gomoku.agent.base import Agent
 from gomoku import encoders
@@ -21,10 +21,12 @@ def clip_probs(original_probs):
 
 class PolicyAgent(Agent):
     def __init__(self, model, encoder):
+        # 케라스 순차모델 인스턴스
         self.model = model
+        # Encoder 인터페이스
         self.encoder = encoder
 
-    # ExperienceCollector아 PolicyAgent 결합
+    # ExperienceCollector와 PolicyAgent 결합
     def set_collector(self, collector):
         self.collector = collector
 
@@ -60,18 +62,28 @@ class PolicyAgent(Agent):
                     )
                 return board.Move.play(point)
 
-    # PolicyAgent 디스크에 기록
+    # PolicyAgent를 디스크에 기록
     def serialize(self, h5file):
+        '''To use this method,
+        first create a new HDF5 file and then process it for it.
+
+        example :
+        import h5py
+        with h5py.File(output_file, 'w') as outf:
+            agent.serialize(outf)
+        '''
         h5file.create_group('encoder')
+        # 바둑판 변환기 재생성에 필요한 정보 저장
         h5file['encoder'].attrs['name'] = self.encoder.name()
         h5file['encoder'].attrs['board_width'] = self.encoder.board_width
         h5file['encoder'].attrs['board_height'] = self.encoder.board_height
         h5file.create_group('model')
+        # 모델과 가중치 저장
         kerasutil.save_model_to_hdf5_group(self._model, h5file['model'])
 
 # 파일에서 정책 Agent 로드
 def load_policy_agent(h5file):
-    # 내장 케라스 함수를 이용하여 모델 구조와 가중치 로드
+    # 모델 구조와 가중치 로드
     model = kerasutil.load_model_from_hdf5_group(
         h5file['model'],
         custom_objects={'policy_gradient_loss': policy_gradient_loss}
