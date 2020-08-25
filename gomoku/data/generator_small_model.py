@@ -56,7 +56,7 @@ model.evaluate_generator(
     steps=test_generator.get_num_samples() / batch_size
 )
 
-# 체크포인트 저장 폴더 존재 여부 확인
+# 모델 저장 폴더 존재 여부 확인
 if not os.path.isdir('./models'):
     os.mkdir('./models')
 
