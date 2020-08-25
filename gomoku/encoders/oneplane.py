@@ -18,9 +18,9 @@ class OnePlaneEncoder(Encoder):
     def encode(self, game_state):
         board_matrix = np.zeros(self.shape())
         next_player = game_state.next_player
-        for r in range(1, self.board_height + 1):
-            for c in range(1, self.board_width + 1):
-                p = Point(row=r, col=c)
+        for r in range(self.board_height):
+            for c in range(self.board_width):
+                p = Point(row=r + 1, col=c + 1)
                 gomoku_string = game_state.board.get(p)
                 if gomoku_string is None:
                     continue
