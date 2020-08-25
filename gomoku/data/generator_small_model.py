@@ -38,8 +38,8 @@ epochs = 5
 batch_size = 32
 
 # 체크포인트 저장 폴더 존재 여부 확인
-if not os.path.isdir('../checkpoints'):
-    os.mkdir('../checkpoints')
+if not os.path.isdir('./checkpoints'):
+    os.mkdir('./checkpoints')
 
 model.fit_generator(
     generator=generator.generate(batch_size, num_classes),
@@ -48,7 +48,7 @@ model.fit_generator(
     validation_data=test_generator.generate(batch_size, num_classes),
     validation_steps=test_generator.get_step(batch_size),
     # 체크포인트 저장
-    callbacks=[ModelCheckpoint('../checkpoints/small_model_epoch_{epoch}.h5')]
+    callbacks=[ModelCheckpoint('./checkpoints/small_model_epoch_{epoch}.h5')]
 
 )
 model.evaluate_generator(
@@ -56,4 +56,8 @@ model.evaluate_generator(
     steps=test_generator.get_num_samples() / batch_size
 )
 
-model.save('model_path.h5')
+# 체크포인트 저장 폴더 존재 여부 확인
+if not os.path.isdir('./models'):
+    os.mkdir('./models')
+
+model.save('./models/small_model.h5')
