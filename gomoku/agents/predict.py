@@ -3,6 +3,7 @@
 # Apache License 2.0
 
 import numpy as np
+import h5py
 
 from gomoku.agents.base import Agent
 from gomoku import encoders
@@ -53,7 +54,7 @@ class DeepLearningAgent(Agent):
         h5file['encoder'].attrs['board_width'] = self.encoder.board_width
         h5file['encoder'].attrs['board_height'] = self.encoder.board_height
         h5file.create_group('model')
-        kerasutil.save_model_to_hdf5_group(self.model, hdfile['model'])
+        kerasutil.save_model_to_hdf5_group(self.model, h5file['model'])
 
 # HDF5 파일에서 DeepLearningAgent 역직렬화
 def load_prediction_agent(h5file):
