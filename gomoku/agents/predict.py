@@ -4,7 +4,7 @@
 
 import numpy as np
 
-from gomoku.agent.base import Agent
+from gomoku.agents.base import Agent
 from gomoku import encoders
 from gomoku import board
 from gomoku import kerasutil

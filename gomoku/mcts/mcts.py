@@ -4,7 +4,7 @@
 
 import math
 import random
-from gomoku import agent
+from gomoku import agents
 from gomoku.types import Player
 
 # MCTS 롤아웃
@@ -59,9 +59,9 @@ class MCTSNode(object):
         return float(self.win_counts[player]) / float(self.num_rollouts)
 
 # MCTS 알고리즘
-class MCTSAgent(agent.Agent):
+class MCTSAgent(agents.Agent):
     def __init__(self, num_rounds, temperature):
-        agent.Agent.__init__(self)
+        agents.Agent.__init__(self)
         self.num_rounds = num_rounds
         self.temperature = temperature
 
@@ -135,8 +135,8 @@ class MCTSAgent(agent.Agent):
     @staticmethod
     def simulate_random_game(game):
         bots = {
-            Player.black: agent.RandomBot(),
-            Player.white: agent.RandomBot(),
+            Player.black: agents.RandomBot(),
+            Player.white: agents.RandomBot(),
         }
         while not game.is_over():
             bot_move = bots[game.next_player].select_move(game)

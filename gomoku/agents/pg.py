@@ -6,7 +6,7 @@ import numpy as np
 from tensorflow.keras import backend as K
 from tensorflow.keras.optimizers import SGD
 
-from gomoku.agent.base import Agent
+from gomoku.agents.base import Agent
 from gomoku import encoders
 from gomoku import board
 from gomoku import kerasutil
@@ -70,7 +70,7 @@ class PolicyAgent(Agent):
         example :
         import h5py
         with h5py.File(output_file, 'w') as outf:
-            agent.serialize(outf)
+            agents.serialize(outf)
         '''
         h5file.create_group('encoder')
         # 바둑판 변환기 재생성에 필요한 정보 저장
@@ -80,6 +80,26 @@ class PolicyAgent(Agent):
         h5file.create_group('model')
         # 모델과 가중치 저장
         kerasutil.save_model_to_hdf5_group(self._model, h5file['model'])
+
+    # 정책 경사 학습을 사용하여 경험 데이터로 에이전트 훈련
+    def train(self, experience, lr, clipnorm, batch_size):
+        self.model.compile(
+            loss='categorical_crossentropy',
+            optimizer=SGD(lr=lr, clipnorm=clipnorm)
+        )
+
+        target_vectors = prepare_experience_data(
+            experience,
+            self.encoder.board_width,
+            self.encoder.board_height
+        )
+
+        self.model.fit(
+            experience.states,
+            target_vectors,
+            batch_size=batch_size,
+            epochs=1
+        )
 
 # 파일에서 정책 Agent 로드
 def load_policy_agent(h5file):

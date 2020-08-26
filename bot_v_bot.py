@@ -2,7 +2,7 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
-from gomoku import agent
+from gomoku import agents
 from gomoku import board
 from gomoku import types
 from gomoku.utils import print_board, print_move

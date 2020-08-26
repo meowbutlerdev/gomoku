@@ -4,7 +4,7 @@
 
 import h5py
 
-from gomoku.agent import pg
+from gomoku.agents import pg
 from gomoku import rl
 from gomoku import board
 from gomoku import types

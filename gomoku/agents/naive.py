@@ -3,7 +3,7 @@
 # Apache License 2.0
 
 import random
-from gomoku.agent.base import Agent
+from gomoku.agents.base import Agent
 from gomoku.board import Move
 from gomoku.types import Point
 

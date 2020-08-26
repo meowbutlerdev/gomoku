@@ -2,7 +2,7 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
-from gomoku import agent
+from gomoku import agents
 from gomoku import board
 from gomoku import types
 from gomoku.utils import print_board, print_move, point_from_coords
@@ -10,7 +10,7 @@ from gomoku.utils import print_board, print_move, point_from_coords
 def main():
     board_size = 9
     game = board.GameState.new_game(board_size)
-    bot = agent.RandomBot()
+    bot = agents.RandomBot()
 
     while not game.is_over():
         try:
