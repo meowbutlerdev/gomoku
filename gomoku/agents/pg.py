@@ -104,10 +104,7 @@ class PolicyAgent(Agent):
 # 파일에서 정책 Agent 로드
 def load_policy_agent(h5file):
     # 모델 구조와 가중치 로드
-    model = kerasutil.load_model_from_hdf5_group(
-        h5file['model'],
-        custom_objects={'policy_gradient_loss': policy_gradient_loss}
-    )
+    model = kerasutil.load_model_from_hdf5_group(h5file['model'])
     # 변환기 복구
     encoder_name = h5file['encoder'].attrs['name']
     board_width = h5file['encoder'].attrs['board_width']

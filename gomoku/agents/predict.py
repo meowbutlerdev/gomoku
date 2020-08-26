@@ -3,7 +3,6 @@
 # Apache License 2.0
 
 import numpy as np
-import h5py
 
 from gomoku.agents.base import Agent
 from gomoku import encoders
