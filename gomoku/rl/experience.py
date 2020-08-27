@@ -2,6 +2,8 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
+import numpy as np
+
 # 단일 에피소드 상의 결정 추적 클래스
 class ExperienceCollector:
     def __init__(self):
@@ -63,7 +65,6 @@ def combine_experience(collectors):
         combined_states,
         combined_actions,
         combined_rewards,
-        combined_advantages
     )
 
 # HDF5 파일에서 ExperienceBuffer 로드
