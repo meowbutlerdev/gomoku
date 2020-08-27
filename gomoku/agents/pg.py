@@ -89,7 +89,7 @@ class PolicyAgent(Agent):
         h5file['encoder'].attrs['board_height'] = self.encoder.board_height
         h5file.create_group('model')
         # 모델과 가중치 저장
-        kerasutil.save_model_to_hdf5_group(self._model, h5file['model'])
+        kerasutil.save_model_to_hdf5_group(self.model, h5file['model'])
 
     # 정책 경사 학습을 사용하여 경험 데이터로 에이전트 훈련
     def train(self, experience, lr, clipnorm, batch_size):
