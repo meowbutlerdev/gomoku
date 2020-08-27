@@ -74,14 +74,14 @@ class PolicyAgent(Agent):
 
     # PolicyAgent를 디스크에 기록
     def serialize(self, h5file):
-        '''To use this method,
+        """To use this method,
         first create a new HDF5 file and then process it for it.
 
         example :
         import h5py
         with h5py.File(output_file, 'w') as outf:
             agents.serialize(outf)
-        '''
+        """
         h5file.create_group('encoder')
         # 바둑판 변환기 재생성에 필요한 정보 저장
         h5file['encoder'].attrs['name'] = self.encoder.name()
