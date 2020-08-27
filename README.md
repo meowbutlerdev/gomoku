@@ -5,14 +5,16 @@
 ```
 .
 ├── gomoku/
-│   ├── agent/
+│   ├── agents/
 │   │   ├── base.py                     : 에이전트 기본 인터페이스
-│   │   └── navie.py                    : 무작위 수를 두는 봇
+│   │   ├── navie.py                    : 무작위 수를 두는 봇
+│   │   ├── pg.py                       : Policy Gradient 봇
+│   │   └── predict.py                  : 심층 신경망을 이용한 수 예측 봇
 │   ├── checkpoints/                    : 모델 체크포인트
 │   ├── data/
-│   │   ├── generator_test_sample.py    : 샘플 모델 훈련
 │   │   ├── generator.py                : 모델 훈련용 제너레이터
 │   │   ├── index_processor.py          : http://renjuoffline.com/의 기보 중 필요한 데이터만 추출
+│   │   ├── notation.py                 : 기보 데이터 파싱(문자로 된 기보를 숫자로 변환)
 │   │   ├── processor.py                : index_processor.py에서 추출된 데이터를 numpy 배열로 변환 및 저장
 │   │   └── sampling.py                 : 추출된 데이터 중 훈련 데이터 샘플링
 │   ├── encoders/
@@ -24,19 +26,31 @@
 │   │   ├── large.py                    : 오목 수 예측용 큰 합성곱 신경망 층
 │   │   ├── medium.py                   : 오목 수 예측용 중간 합성곱 신경망 층
 │   │   └── small.py                    : 오목 수 예측용 작은 합성곱 신경망 층
-│   ├── data/
-│   │   └── notation.py                 : 문자로 된 기보를 숫자로 변환
+│   ├── rl/
+│   │   └── experience.py               : 경험 데이터셋 클래스
 │   ├── board.py                        : 바둑판 구현 및 게임 현황
+│   ├── kerasutil.py                    : save HDF5 & load HDF5
 │   ├── types.py                        : 각 선수 및 돌의 좌표
 │   ├── utils.py                        : 돌 착수 위치 및 바둑판 출력
 │   └── zobrist.py                      : 조브리스트 해싱
 ├── bot_v_bot.py                        : 봇끼리 대국 진행
 ├── generate_mcts_games.py              : MCTS로 대국 데이터 생성
-└── human_v_bot.py                      : 사람과 봇 대국 진행
+├── bot_v_bot_agent_pg.py               : 
+├── eval_pg_bot.py                      : 모델 성능 평가
+├── generate_deep_learning_model.py     : 수 예측 모델 생성
+├── generate_mcts_games.py              : mcts를 이용한 대국 데이터 생성
+├── human_v_bot.py                      : 사람과 봇(random) 대국 진행
+├── human_v_bot_mcts.py                 : 사람과 봇(mcts) 대국 진행
+├── self_play.py                        : 자체 대국을 통한 경험데이터 생성
+└── train_pg.py                         : pg 에이전트로 생성한 경험데이터로 모델 훈련
 ```
 
 # Skills
 - python3
+- Numpy
+- Keras
+- HDF5
+- TensorFlow
 
 # Release  
 |Version|Date|Comments|
