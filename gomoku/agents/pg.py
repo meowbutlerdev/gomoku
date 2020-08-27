@@ -19,6 +19,15 @@ def clip_probs(original_probs):
     clipped_probs = clipped_probs / np.sum(clipped_probs)
     return clipped_probs
 
+def prepare_experience_data(experience, board_width, board_height):
+    experience_size = experience.actions.shape[0]
+    target_vectors = np.zeros((experience_size, board_width * board_height))
+    for i in range(experience_size):
+        action = experience.actions[i]
+        reward = experience.rewards[i]
+        target_vectors[i][action] = reward
+    return target_vectors
+
 class PolicyAgent(Agent):
     def __init__(self, model, encoder):
         # 케라스 순차모델 인스턴스
