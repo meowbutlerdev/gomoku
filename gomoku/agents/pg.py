@@ -19,6 +19,7 @@ def clip_probs(original_probs):
     clipped_probs = clipped_probs / np.sum(clipped_probs)
     return clipped_probs
 
+# 경험 데이터를 타겟 벡터로 변환
 def prepare_experience_data(experience, board_width, board_height):
     experience_size = experience.actions.shape[0]
     target_vectors = np.zeros((experience_size, board_width * board_height))
