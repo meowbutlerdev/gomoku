@@ -35,6 +35,7 @@ class PolicyAgent(Agent):
         self.model = model
         # Encoder 인터페이스
         self.encoder = encoder
+        self.collector = None
 
     # ExperienceCollector와 PolicyAgent 결합
     def set_collector(self, collector):
