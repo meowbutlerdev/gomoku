@@ -10,6 +10,9 @@ from gomoku import agents
 from gomoku import rl
 
 def main():
+    """example :
+    python train_pg.py --learning-agent <path> <paths>
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--learning-agent', required=True)
     parser.add_argument('--agent-out', required=True)
