@@ -10,8 +10,10 @@ class ExperienceCollector:
         self.states = []
         self.actions = []
         self.rewards = []
+        self.advantages = []
         self.current_episode_states = []
         self.current_episode_actions = []
+        self.current_episode_estimated_values = []
 
     def begin_episode(self):
         self.current_episode_states = []
@@ -19,9 +21,10 @@ class ExperienceCollector:
 
     # 현재 에피소드의 단일 결정을 기록
     # 에이전트가 상태와 행동을 변환해서 전달
-    def record_decision(self, state, action):
+    def record_decision(self, state, action, estimated_value=0):
         self.current_episode_states.append(state)
         self.current_episode_actions.append(action)
+        self.current_episode_estimated_values.append(estimated_value)
 
     def complete_episode(self, reward):
         num_states = len(self.current_episode_states)
@@ -30,8 +33,14 @@ class ExperienceCollector:
         # 최종 보상을 대국의 모든 행동에 전달
         self.rewards += [reward for _ in range(num_states)]
 
+        # 각 결정의 어드밴티지 계산
+        for i in range(num_states):
+            advantage = reward - self.current_episode_estimated_values[i]
+            self.advantages.append(advantage)
+
         self.current_episode_states = []
         self.current_episode_actions = []
+        self.current_episode_estimated_values = []
 
     def to_buffer(self):
         # list to numpy array
@@ -43,10 +52,11 @@ class ExperienceCollector:
 
 # 경험 버퍼 생성자
 class ExperienceBuffer:
-    def __init__(self, states, actions, rewards):
+    def __init__(self, states, actions, rewards, advantages):
         self.states = states
         self.actions = actions
         self.rewards = rewards
+        self.advantages = advantages
 
     # 경험 버퍼를 디스크에 저장
     def serialize(self, h5file):
@@ -54,17 +64,20 @@ class ExperienceBuffer:
         h5file['experience'].create_dataset('states', data=self.states)
         h5file['experience'].create_dataset('actions', data=self.actions)
         h5file['experience'].create_dataset('rewards', data=self.rewards)
+        h5file['experience'].create_dataset('advantages', data=self.advantages)
 
 # 경험 데이터 배치 저장
 def combine_experience(collectors):
     combined_states = np.concatenate([np.array(c.states) for c in collectors])
     combined_actions = np.concatenate([np.array(c.actions) for c in collectors])
     combined_rewards = np.concatenate([np.array(c.rewards) for c in collectors])
+    combined_advantages = np.concatenate([np.array(c.advantages) for c in collectors])
 
     return ExperienceBuffer(
         combined_states,
         combined_actions,
         combined_rewards,
+        combined_advantages
     )
 
 # HDF5 파일에서 ExperienceBuffer 로드
