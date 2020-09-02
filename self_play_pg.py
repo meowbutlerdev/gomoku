@@ -49,7 +49,7 @@ def simulate_game(black_player, white_player):
 
 def main():
     """example :
-    python self_play.py --board-size 15 --learning-agent <path> --num-games 100 --experience-out <path>
+    python self_play_pg.py --board-size 15 --learning-agent <path> --num-games 100 --experience-out <path>
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--board-size', type=int, required=True)

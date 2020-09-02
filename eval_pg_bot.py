@@ -50,7 +50,7 @@ def simulate_game(black_player, white_player):
 
 def main():
     """example :
-    python self_play.py --agent1 <path> --agent2 <path> --num-games 100
+    python self_play_pg.py --agent1 <path> --agent2 <path> --num-games 100
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--agent1', required=True)
