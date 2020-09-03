@@ -15,12 +15,6 @@ class Player(enum.IntEnum):
     def other(self):
         return Player.black if self == Player.white else Player.white
 
-# 바둑판에서 돌의 좌표
+# 좌표
 class Point(namedtuple('Point', 'row col')):
-    def neighbors(self):
-        return [
-            Point(self.row - 1, self.col),
-            Point(self.row + 1, self.col),
-            Point(self.row, self.col - 1),
-            Point(self.row, self.col + 1),
-        ]
+    pass
