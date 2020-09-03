@@ -81,53 +81,26 @@ class GameState():
 
     # 돌이 5개 모였는지 확인
     def is_five(self, row, col):
-        row = row
-        col = col
-        five = True
+        current = self.board._grid[row][col]
+        right = [current]
+        bottom = [current]
+        bottom_left = [current]
+        bottom_right = [current]
 
-        # 현재 위치에서 우측 확인
         for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=row, col=col+i)) or \
-                   self.board._grid[row][col] != self.board._grid[row][col+i]:
-                five = False
-                break
-        if five:
-            return self.board._grid[row][col]
-        else:
-            five = True
+            if self.board.is_on_grid(Point(row=row, col=col+i)):
+                right.append(self.board._grid[row][col+i])
+            if self.board.is_on_grid(Point(row=row+i, col=col)):
+                bottom.append(self.board._grid[row+i][col])
+            if self.board.is_on_grid(Point(row=row+i, col=col-i)):
+                bottom_left.append(self.board._grid[row+i][col-i])
+            if self.board.is_on_grid(Point(row=row+i, col=col+i)):
+                bottom_right.append(self.board._grid[row+i][col+i])
 
-        # 현재 위치에서 하단 확인
-        for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=row+i, col=col)) or \
-                   self.board._grid[row][col] != self.board._grid[row+i][col]:
-                five = False
-                break
-        if five:
-            return self.board._grid[row][col]
-        else:
-            five = True
-
-        # 현재 위치에서 좌하단 확인
-        for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=row+i, col=col-i)) or \
-                   self.board._grid[row][col] != self.board._grid[row+i][col-i]:
-                five = False
-                break
-        if five:
-            return self.board._grid[row][col]
-        else:
-            five = True
-
-        # 현재 위치에서 우하단 확인
-        for i in range(1, 5):
-            if not self.board.is_on_grid(Point(row=row+i, col=col+i)) or \
-                   self.board._grid[row][col] != self.board._grid[row+i][col+i]:
-                five = False
-                break
-        if five:
-            return self.board._grid[row][col]
-
-        return None
+        if right.count(current) == 5 or bottom.count(current) == 5 or \
+           bottom_left.count(current) == 5 or bottom_right.count(current) == 5:
+            return current
+        else: return None
 
     # 대국이 종료되었는지 확인
     def is_over(self):
