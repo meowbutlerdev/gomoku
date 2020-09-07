@@ -7,16 +7,15 @@ import os
 import h5py
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from tensorflow.keras.callbacks import ModelCheckpoint
 
 from gomoku.agents.predict import DeepLearningAgent
 from gomoku.data.processor import GomokuDataProcessor
-from gomoku.encoders.oneplane import OnePlaneEncoder
+from gomoku.encoders.simple import SimpleEncoder
 from gomoku.networks import large
 
 board_rows, board_cols = 15, 15
 nb_classes = board_rows * board_cols
-encoder = OnePlaneEncoder((board_rows, board_cols))
+encoder = SimpleEncoder((board_rows, board_cols))
 processor = GomokuDataProcessor(encoder=encoder.name())
 
 X, y = processor.load_gomoku_data(num_samples=None)
