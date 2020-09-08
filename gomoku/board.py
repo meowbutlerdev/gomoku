@@ -2,7 +2,10 @@
 # <llllllllll@kakao.com>
 # Apache License 2.0
 
+from collections import Counter
+from itertools import groupby
 import copy
+
 from gomoku.types import Player, Point
 from gomoku import zobrist
 
@@ -96,11 +99,62 @@ class GameState():
                 bottom_left.append(self.board._grid[row+i][col-i])
             if self.board.is_on_grid(Point(row=row+i, col=col+i)):
                 bottom_right.append(self.board._grid[row+i][col+i])
-
         if right.count(current) == 5 or bottom.count(current) == 5 or \
            bottom_left.count(current) == 5 or bottom_right.count(current) == 5:
             return current
-        else: return None
+        else:
+            return None
+
+    # 열린/닫힌 3/4 확인
+    def open_closed(self, row, col):
+        current = self.board._grid[row][col]
+        right = [current]
+        bottom = [current]
+        bottom_left = [current]
+        bottom_right = [current]
+
+        for i in range(1, 6):
+            if self.board.is_on_grid(Point(row=row, col=col+i)):
+                right.append(self.board._grid[row][col+i])
+            if self.board.is_on_grid(Point(row=row+i, col=col)):
+                bottom.append(self.board._grid[row+i][col])
+            if self.board.is_on_grid(Point(row=row+i, col=col-i)):
+                bottom_left.append(self.board._grid[row+i][col-i])
+            if self.board.is_on_grid(Point(row=row+i, col=col+i)):
+                bottom_right.append(self.board._grid[row+i][col+i])
+
+        directions = zip(
+            ('right', 'bottom', 'bottom_left', 'bottom_right'),
+            (right, bottom, bottom_left, bottom_right)
+        )
+        ret = []
+        for direction_string, direction in directions:
+            print(direction_string, direction)
+            most = Counter(direction[1:-1]).most_common()
+
+            if not most or not most:
+                continue
+            if most[0][0] is None or most[0][0] is None:
+                continue
+
+            if direction[0] is None and direction[-1] is None:
+                if not direction[1:-1].count(most[0][0].other):
+                    # 열린 4
+                    if most[0][1] == 4:
+                        ret.append((direction_string, 'open', most[0][0], direction, 4))
+                    # 열린 3
+                    if most[0][1] == 3 and direction[2:-2].count(None) < 2:
+                        ret.append((direction_string, 'open', most[0][0], direction, 3))
+            if (direction[0] == most[0][0].other and direction[-1] is None) ^\
+               (direction[::-1][0] == most[0][0].other and direction[::-1][-1] is None):
+                if not direction[1:-1].count(most[0][0].other):
+                    # 닫힌 4
+                    if most[0][1] == 4:
+                        ret.append((direction_string, 'closed', most[0][0], direction, 4))
+                    # 닫힌 3
+                    if most[0][1] == 3 and direction[2:-2].count(None) < 2:
+                        ret.append((direction_string, 'closed', most[0][0], direction, 3))
+        return ret
 
     # 대국이 종료되었는지 확인
     def is_over(self):
