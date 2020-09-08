@@ -10,7 +10,6 @@
 │   │   ├── navie.py                    : 무작위 수를 두는 봇
 │   │   ├── pg.py                       : Policy Gradient 봇
 │   │   └── predict.py                  : 심층 신경망을 이용한 수 예측 봇
-│   ├── checkpoints/                    : 모델 체크포인트
 │   ├── data/
 │   │   ├── generator.py                : 모델 훈련용 제너레이터
 │   │   ├── index_processor.py          : http://renjuoffline.com/의 기보 중 필요한 데이터만 추출
@@ -19,30 +18,37 @@
 │   │   └── sampling.py                 : 추출된 데이터 중 훈련 데이터 샘플링
 │   ├── encoders/
 │   │   ├── base.py                     : 변환기 기본
-│   │   └── oneplane.py                 : 자기 자신의 돌은 1, 상대의 돌은 -1, 빈 곳은 0으로 변환하는 변환기
+│   │   ├── oneplane.py                 : 자기 자신의 돌은 1, 상대의 돌은 -1, 빈 곳은 0으로 변환하는 변환기
+│   │   └── simple.py                   : 10차 평면의 기본 변환기
 │   ├── mcts/
 │   │   └── mcts.py                     : MCTS 알고리즘
 │   ├── networks/
+│   │   ├── alphagomoku.py              : 알파고 신경망
 │   │   ├── large.py                    : 오목 수 예측용 큰 합성곱 신경망 층
 │   │   ├── medium.py                   : 오목 수 예측용 중간 합성곱 신경망 층
 │   │   └── small.py                    : 오목 수 예측용 작은 합성곱 신경망 층
 │   ├── rl/
-│   │   └── experience.py               : 경험 데이터셋 클래스
+│   │   ├── ac.py                       : Actor-Critic 봇
+│   │   ├── experience.py               : 경험 데이터셋 클래스
+│   │   └── q.py                        : Q-Learning 봇
 │   ├── board.py                        : 바둑판 구현 및 게임 현황
 │   ├── kerasutil.py                    : save HDF5 & load HDF5
 │   ├── types.py                        : 각 선수 및 돌의 좌표
 │   ├── utils.py                        : 돌 착수 위치 및 바둑판 출력
 │   └── zobrist.py                      : 조브리스트 해싱
 ├── bot_v_bot.py                        : 봇끼리 대국 진행
-├── generate_mcts_games.py              : MCTS로 대국 데이터 생성
 ├── bot_v_bot_agent_pg.py               : 
-├── eval_pg_bot.py                      : 모델 성능 평가
+├── eval_ac_bot.py                      : Actor-Critic 모델 성능 평가
+├── eval_pg_bot.py                      : Policy Gradient 모델 성능 평가
 ├── generate_deep_learning_model.py     : 수 예측 모델 생성
 ├── generate_mcts_games.py              : mcts를 이용한 대국 데이터 생성
 ├── human_v_bot.py                      : 사람과 봇(random) 대국 진행
 ├── human_v_bot_mcts.py                 : 사람과 봇(mcts) 대국 진행
-├── self_play.py                        : 자체 대국을 통한 경험데이터 생성
-└── train_pg.py                         : pg 에이전트로 생성한 경험데이터로 모델 훈련
+├── init_ac_agent.py                    : 
+├── self_play_ac.py                     : Actor-Critic 봇 대국을 통한 경험데이터 생성
+├── self_play_pg.py                     : Policy Gradient 봇 대국을 통한 경험데이터 생성
+├── train_ac.py                         : 
+└── train_pg.py                         : Policy Gradient 봇으로 생성한 경험데이터로 모델 훈련
 ```
 
 # Skills
