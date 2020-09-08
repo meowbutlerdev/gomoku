@@ -15,7 +15,10 @@ STONE_TO_CHAR = {
 
 # 돌 착수 위치 출력
 def print_move(player, move):
-    move_str = f'{COLS[move.point.col - 1]}{move.point.row}'
+    if move.is_resign:
+        move_str = '기권'
+    else:
+        move_str = f'{COLS[move.point.col - 1]}{move.point.row}'
     print(f'{str(player)} {move_str}')
 
 # 바둑판 출력

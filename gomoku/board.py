@@ -11,15 +11,21 @@ from gomoku import zobrist
 
 # 자기 차례에 할 수 있는 행동 정의 클래스
 class Move():
-    def __init__(self, point=None):
-        assert (point is not None)
+    def __init__(self, point=None, is_resign=False):
+        assert (point is not None) ^ is_resign
         self.point = point
         self.is_play = (self.point is not None)
+        self.is_resign = is_resign
 
     # 바둑판에 돌을 놓는 행동
     @classmethod
     def play(cls, point):
         return Move(point=point)
+
+    # 대국을 포기하는 행동
+    @classmethod
+    def resign(cls):
+        return Move(is_resign=True)
 
 # 바둑판 정의 클래스
 class Board():
@@ -158,6 +164,10 @@ class GameState():
 
     # 대국이 종료되었는지 확인
     def is_over(self):
+        if self.last_move is None:
+            return False
+        if self.last_move.is_resign:
+            return True
         is_board_full = True
         for row in range(self.board.num_rows):
             for col in range(self.board.num_cols):
@@ -176,6 +186,10 @@ class GameState():
 
     # 현재 상태에서 유효한 수인지 확인
     def is_valid_move(self, move):
+        if self.is_over():
+            return False
+        if move.is_resign:
+            return True
         return not self.board.get(move.point)
 
     # 현재 상태에서 유효한 수들 모음
