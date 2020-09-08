@@ -30,7 +30,8 @@ class Index:
                 code = game.find('id')
                 creation_time = game.find('creation_time')
                 winby = game.find('winby')
-                if winby.text == 'five' or winby.text == 'resign':
+                board = game.find('board')
+                if (winby.text == 'five' or winby.text == 'resign') and board.text is not None:
                     tm = time.gmtime(int(creation_time.text))
                     name = f'data/{tm.tm_year}{str(tm.tm_mon).zfill(2)}{str(tm.tm_mday).zfill(2)}-{code.text}.xml'
                     if not os.path.isfile(name):
