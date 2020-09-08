@@ -135,7 +135,6 @@ class GameState():
         )
         ret = []
         for direction_string, direction in directions:
-            print(direction_string, direction)
             most = Counter(direction[1:-1]).most_common()
 
             if not most or not most:
