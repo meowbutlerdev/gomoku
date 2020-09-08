@@ -33,6 +33,6 @@ class Index:
                 board = game.find('board')
                 if (winby.text == 'five' or winby.text == 'resign') and board.text is not None:
                     tm = time.gmtime(int(creation_time.text))
-                    name = f'data/{tm.tm_year}{str(tm.tm_mon).zfill(2)}{str(tm.tm_mday).zfill(2)}-{code.text}.xml'
+                    name = f'{self.data_directory}/{tm.tm_year}{str(tm.tm_mon).zfill(2)}{str(tm.tm_mday).zfill(2)}-{code.text}.xml'
                     if not os.path.isfile(name):
                         elemTree.ElementTree(game).write(name)
