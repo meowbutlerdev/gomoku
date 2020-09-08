@@ -3,7 +3,6 @@
 # Apache License 2.0
 
 import numpy as np
-from tensorflow.keras import backend as K
 from tensorflow.keras.optimizers import SGD
 
 from gomoku.agents.base import Agent
