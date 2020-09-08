@@ -56,7 +56,6 @@ class Sampler:
         index = Index(data_directory=self.data_dir)
         for file_info in index.file_info:
             filename = file_info['filename']
-            year = int(filename.split('-')[1].split('_')[0])
             num_games = file_info['num_games']
             for i in range(num_games):
                 sample = (filename, i)
@@ -92,7 +91,6 @@ class Sampler:
                 filename = filepath.replace(self.data_dir + '\\', '')
             else:
                 filename = filepath.replace(self.data_dir + '/', '')
-            year = int(filename[:4])
             available_games.append(filename)
         print('total num training games: ' + str(len(available_games)))
 
@@ -113,7 +111,6 @@ class Sampler:
                 filename = filepath.replace(self.data_dir + '\\', '')
             else:
                 filename = filepath.replace(self.data_dir + '/', '')
-            year = int(filename[:4])
             available_games.append(filename)
         print('total num training games: ' + str(len(available_games)))
 
