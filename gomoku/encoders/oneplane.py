@@ -25,7 +25,7 @@ class OnePlaneEncoder(Encoder):
                 if gomoku_string is None:
                     continue
                 board_matrix[0, r, c] = 1 if gomoku_string == next_player else -1
-            return board_matrix
+        return board_matrix
 
     # 바둑판의 각 점들을 정수형 인덱스로 변환
     def encode_point(self, point):
