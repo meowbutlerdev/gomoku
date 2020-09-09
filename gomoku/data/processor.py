@@ -113,8 +113,8 @@ class GomokuDataProcessor:
         features = np.concatenate(feature_list, axis=0)
         labels = np.concatenate(label_list, axis=0)
 
-        feature_file = f'{self.data_dir}/{name}'
-        label_file = f'{self.data_dir}/{name}'
+        feature_file = f'{self.data_dir}/{name}_features'
+        label_file = f'{self.data_dir}/{name}_labels'
 
         np.save(feature_file, features)
         np.save(label_file, labels)
