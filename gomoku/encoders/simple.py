@@ -8,30 +8,41 @@ from gomoku.encoders.base import Encoder
 from gomoku.board import Move
 from gomoku.types import Player, Point
 
-# 10차 평면 변환기
+# 13차 평면 변환기
 # 0 - 1 : 흑과 백의 열린 3
 # 2 - 3 : 흑과 백의 열린 4
 # 4 - 5 : 흑과 백의 닫힌 3
 # 6 - 7 : 흑과 백의 닫힌 4
 # 8 : 흑의 턴일 때 1로 채움
 # 9 : 백의 턴일 때 1로 채움
+# 10 : 현재 선수의 돌을 1로 표현
+# 11 : 상대 선수의 돌을 1로 표현
+# 12 : 빈 점을 1로 표현
 class SimpleEncoder(Encoder):
     def __init__(self, board_size):
         self.board_width, self.board_height = board_size
-        self.num_planes = 10
+        self.num_planes = 13
 
     def name(self):
         return 'simple'
 
     def encode(self, game_state):
         board_tensor = np.zeros(self.shape())
-        if game_state.next_player == Player.black:
+
+        next_player = game_state.next_player
+        if next_player == Player.black:
             board_tensor[8] = 1
         else:
             board_tensor[9] = 1
 
         for r in range(self.board_height):
             for c in range(self.board_width):
+                p = Point(row=r + 1, col=c + 1)
+                gomoku_string = game_state.board.get(p)
+                board_tensor[10, r, c] = 1 if gomoku_string == next_player else 0
+                board_tensor[11, r, c] = 1 if gomoku_string != next_player and gomoku_string is not None else 0
+                board_tensor[12, r, c] = 1 if gomoku_string is None else 0
+
                 open_closeds = game_state.open_closed(r+1, c+1)
                 for ds, oc, s, d, cnt in open_closeds:
                     for i in range(len(d)):
