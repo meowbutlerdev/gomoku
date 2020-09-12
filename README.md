@@ -19,7 +19,7 @@
 │   ├── encoders/
 │   │   ├── base.py                     : 변환기 기본
 │   │   ├── oneplane.py                 : 자기 자신의 돌은 1, 상대의 돌은 -1, 빈 곳은 0으로 변환하는 변환기
-│   │   └── simple.py                   : 10차 평면의 기본 변환기
+│   │   └── simple.py                   : 13차 평면의 기본 변환기
 │   ├── mcts/
 │   │   └── mcts.py                     : MCTS 알고리즘
 │   ├── networks/
@@ -47,7 +47,7 @@
 ├── init_ac_agent.py                    : 
 ├── self_play_ac.py                     : Actor-Critic 봇 대국을 통한 경험데이터 생성
 ├── self_play_pg.py                     : Policy Gradient 봇 대국을 통한 경험데이터 생성
-├── train_ac.py                         : 
+├── train_ac.py                         : Actor-Critic 봇으로 생성한 경험데이터로 모델 훈련
 └── train_pg.py                         : Policy Gradient 봇으로 생성한 경험데이터로 모델 훈련
 ```
 
@@ -58,10 +58,17 @@
 - HDF5
 - TensorFlow
 
-# Release  
-|Version|Date|Comments|
-|---|---|---|
-|-|-|개발중|
+# How to use  
+1. 사람의 대국 기보 데이터로 최초 모델 훈련
+2. 경험데이터 생성
+  - Actor-Critic 경험데이터
+  - Policy Gradient 경험데이터
+3. 경험데이터를 이용하여 모델 훈련
+  - Actor-Critic 모델 훈련
+  - Policy Gradient 모델 훈련
+4. 모델 성능 평가
+  - Actor-Critic 모델 성능 평가
+  - Policy Gradient 모델 성능 평가
 
 <br>
 
