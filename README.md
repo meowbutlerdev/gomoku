@@ -59,16 +59,16 @@
 - TensorFlow
 
 # How to use  
-1. 사람의 대국 기보 데이터로 최초 모델 훈련
-2. 경험데이터 생성
-  - Actor-Critic 경험데이터
-  - Policy Gradient 경험데이터
-3. 경험데이터를 이용하여 모델 훈련
-  - Actor-Critic 모델 훈련
-  - Policy Gradient 모델 훈련
-4. 모델 성능 평가
-  - Actor-Critic 모델 성능 평가
-  - Policy Gradient 모델 성능 평가
+#### 사람의 대국 기보 데이터로 최초 모델 훈련
+#### 경험데이터 생성
+- Actor-Critic 경험데이터
+- Policy Gradient 경험데이터
+#### 경험데이터를 이용하여 모델 훈련
+- Actor-Critic 모델 훈련
+- Policy Gradient 모델 훈련
+#### 모델 성능 평가
+- Actor-Critic 모델 성능 평가
+- Policy Gradient 모델 성능 평가
 
 <br>
 
