@@ -6,7 +6,7 @@ from tensorflow.keras.model import Sequential
 from tensorflow.keras.layers.core import Dense, Flatten
 from tensorflow.keras.convolutional import Conv2D
 
-# is_policy_net 변수를 통해 정책 신경망과 가치 신경망 선택
+# is_policy_net 파라미터 통해 정책 신경망과 가치 신경망 선택
 def alphagomoku_model(input_shape, is_policy_net=False, num_filters=192, \
                       first_kernel_size=5, other_kernel_size=3):
     model = Sequential()
@@ -21,7 +21,7 @@ def alphagomoku_model(input_shape, is_policy_net=False, num_filters=192, \
         )
     )
 
-    for i in range(2, 12):
+    for _ in range(2, 12):
         model.add(
             Conv2D(
                 num_filters,
