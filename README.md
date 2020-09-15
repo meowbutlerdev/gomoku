@@ -37,7 +37,7 @@
 │   ├── utils.py                        : 돌 착수 위치 및 바둑판 출력
 │   └── zobrist.py                      : 조브리스트 해싱
 ├── bot_v_bot.py                        : 봇끼리 대국 진행
-├── bot_v_bot_agent_pg.py               : 
+├── bot_v_bot_agent_pg.py               : 봇끼리 대국 진행(Policy Gradient 모델)
 ├── eval_ac_bot.py                      : Actor-Critic 모델 성능 평가
 ├── eval_pg_bot.py                      : Policy Gradient 모델 성능 평가
 ├── generate_deep_learning_model.py     : 수 예측 모델 생성
@@ -76,4 +76,4 @@
   
 <br>
 
-#### Open Source License는 [이곳](NOTICE.md)에서 확인해주시고, 문의사항은 [Issue](https://github.com/IllIIIllll/mcts-omok/issues) 페이지에 남겨주세요.
+#### Open Source License는 [이곳](NOTICE.md)에서 확인해주시고, 문의사항은 [Issue](https://github.com/IllIIIllll/gomoku/issues) 페이지에 남겨주세요.
