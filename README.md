@@ -1,4 +1,5 @@
 # gomoku
+Actor-Critic과 Policy Gradient를 이용한 인공지능 오목
 
 # Tree
 ```
