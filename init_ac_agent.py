@@ -18,7 +18,7 @@ def main():
     parser.add_argument('output_file')
     args = parser.parse_args()
 
-    encoder = encoders.get_encoder_by_name('oneplane', args.board_size)
+    encoder = encoders.get_encoder_by_name('simple', args.board_size)
 
     board_input = Input(shape=encoder.shape(), name='board_input')
 
