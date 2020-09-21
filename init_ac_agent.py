@@ -13,6 +13,9 @@ from gomoku import rl
 from gomoku import encoders
 
 def main():
+    """example :
+    python init_ac_agent.py --baord-size 15 ac_v1.hdf5
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('--board-size', type=int, default=15)
     parser.add_argument('output_file')
