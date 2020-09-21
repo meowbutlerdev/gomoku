@@ -11,7 +11,7 @@ from gomoku import rl
 
 def main():
     """example :
-    python train_ac.py --learning-agent <path> --agent-out <path> --lr 0.01 --bs 32 <paths>
+    python train_ac.py --learning-agent <path> --agent-out <path> --lr 0.01 --bs 32 <experience paths>
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--learning-agent', required=True)

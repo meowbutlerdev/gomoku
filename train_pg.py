@@ -11,7 +11,7 @@ from gomoku import rl
 
 def main():
     """example :
-    python train_pg.py --learning-agent <path> <paths>
+    python train_pg.py --learning-agent <path> <experience paths>
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--learning-agent', required=True)
