@@ -74,12 +74,6 @@ def main():
         else:
             white_player, black_player = agent1, agent2
         game_record = simulate_game(black_player, white_player)
-        print('>>>>>>>>>>>>>>>>> color1 : ', color1)
-        print('>>>>>>>>>>>>>>>>> type : ', type(color1))
-        print('>>>>>>>>>>>>>>>>> str(color1) : ', str(color1))
-        print('>>>>>>>>>>>>>>>>> type : ', type(str(color1)))
-        print('>>>>>>>>>>>>>>>>> record : ', game_record.winner)
-        print('>>>>>>>>>>>>>>>>> type : ', type(game_record.winner))
         if game_record.winner == str(color1):
             wins += 1
         else:
