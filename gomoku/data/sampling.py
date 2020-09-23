@@ -9,6 +9,12 @@ import platform
 from gomoku.data.index_processor import Index
 from six.moves import range
 
+def get_filename(path, data):
+    if self.platform == 'Windows':
+        return path.replace(data + '\\', '')
+    else:
+        return path.replace(data + '/', '')
+
 class Sampler:
     def __init__(self, data_dir='data', num_test_games=100, seed=1101):
         self.data_dir = data_dir
@@ -36,10 +42,7 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            if self.platform == 'Windows':
-                filename = filepath.replace(self.data_dir + '\\', '')
-            else:
-                filename = filepath.replace(self.data_dir + '/', '')
+            filename = get_filename(filepath, self.data_dir)
             available_games.append(filename)
         print('>>> Total number of games used: ' + str(len(available_games)))
 
@@ -87,10 +90,7 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            if self.platform == 'Windows':
-                filename = filepath.replace(self.data_dir + '\\', '')
-            else:
-                filename = filepath.replace(self.data_dir + '/', '')
+            filename = get_filename(filepath, self.data_dir)
             available_games.append(filename)
         print('total num training games: ' + str(len(available_games)))
 
@@ -107,10 +107,7 @@ class Sampler:
         available_games = []
         base = self.data_dir + '/' + '*.xml'
         for filepath in glob.glob(base):
-            if self.platform == 'Windows':
-                filename = filepath.replace(self.data_dir + '\\', '')
-            else:
-                filename = filepath.replace(self.data_dir + '/', '')
+            filename = get_filename(filepath, self.data_dir)
             available_games.append(filename)
         print('total num training games: ' + str(len(available_games)))
 
