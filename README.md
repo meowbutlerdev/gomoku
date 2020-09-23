@@ -1,4 +1,5 @@
 # gomoku
+Actor-Critic과 Policy Gradient를 이용한 인공지능 오목
 
 # Tree
 ```
@@ -59,7 +60,7 @@
 # How to use  
 #### 사람의 대국 기보 데이터로 최초 모델 훈련
 ```python
-python generate_deep_learning_model.py --board-size 15 --encoder simple --num-games None --epochs 5 --batch-size 512 --model-out deep_bot.h5
+python generate_deep_learning_model.py --board-size 15 --encoder simple --num-games None --epochs 5 --batch-size 512 --model-out <path>
 ```
 #### 경험데이터 생성
 - Actor-Critic 경험데이터  
